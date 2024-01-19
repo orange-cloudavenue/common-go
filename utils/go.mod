@@ -1,3 +1,3 @@
 module github.com/orange-cloudavenue/common-go/utils
 
-go 1.21.4
+go 1.20
