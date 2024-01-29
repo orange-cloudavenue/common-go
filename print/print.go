@@ -7,62 +7,67 @@ import (
 	"text/tabwriter"
 )
 
-// var fs string
+type (
+	Writer struct {
+		header []string
+		tw     *tabwriter.Writer
+	}
+)
 
-type Writer struct {
-	tw *tabwriter.Writer
-}
-
-// New Writer
+// New returns a new instance of the Writer struct.
 func New() Writer {
 	return Writer{
-		tw: tabwriter.NewWriter(os.Stdout, 10, 1, 5, ' ', 0),
+		header: []string{},
+		tw:     tabwriter.NewWriter(os.Stdout, 10, 1, 5, ' ', 0),
 	}
 }
 
-// Create format string
-func format(fields ...any) (fs string) {
-	fs = ""
-	for _, field := range fields {
-		switch field.(type) {
-		case string:
-			fs += "%s\t"
-		case int:
-			fs += "%d\t"
-		case float64:
-			fs += "%f\t"
-		case bool:
-			fs += "%t\t"
-		default:
-			fs += "%v\t"
-		}
-	}
-	fs += "\n"
-	return fs
-}
-
-// Set Header fieds into upper case
-func (w Writer) SetHeader(fields ...any) {
+// SetHeader sets the header fields for the Writer.
+// It takes a variadic parameter fields of type any, representing the header fields.
+// If no fields are provided, the function returns without making any changes.
+// Each field in the fields parameter is converted to a string and stored in the header slice of the Writer.
+// The converted fields are also appended to the underlying text writer, tw.
+// If any field in the fields parameter is not a string, the function panics with an error message.
+// The header fields are converted to uppercase before being stored in the header slice.
+// The formatted header fields are then written to the text writer using the format function.
+func (w *Writer) SetHeader(fields ...any) {
 	if len(fields) == 0 {
 		return
 	}
-	fs := format(fields...)
+
 	for i, field := range fields {
-		switch field.(type) { //nolint:gosimple
-		case string:
-			fields[i] = strings.ToUpper(field.(string)) //nolint:gosimple
+		v, ok := field.(string)
+		if !ok {
+			panic("Header fields must be string")
 		}
+		fields[i] = strings.ToUpper(v)
+		w.header = append(w.header, v)
 	}
-	fmt.Fprintf(w.tw, fs, fields...)
+
+	fmt.Fprintf(w.tw, format(fields...), fields...)
 }
 
-// AddFields to the table
+// AddFields adds fields to the writer.
+// It takes a variadic parameter fields of type any.
+// If the length of fields is zero, it returns immediately.
+// If the length of fields is not equal to the length of the writer's header, it panics with the message "Fields must be the same length as header".
+// It formats each field using the fieldFormat function.
+// It then formats the fields using the format function and writes them to the writer's tw.
+// Finally, it writes the formatted fields to the writer's tw using fmt.Fprintf.
 func (w Writer) AddFields(fields ...any) {
 	if len(fields) == 0 {
 		return
 	}
-	fs := format(fields...)
-	fmt.Fprintf(w.tw, fs, fields...)
+
+	if len(fields) != len(w.header) {
+		panic("Fields must be the same length as header")
+	}
+
+	for i, field := range fields {
+		fields[i] = fieldFormat(field)
+	}
+
+	fmt.Fprintf(w.tw, format(fields...), fields...)
 }
 
 // Print a line
