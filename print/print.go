@@ -2,6 +2,7 @@ package print
 
 import (
 	"fmt"
+	"io"
 	"os"
 	"strings"
 	"text/tabwriter"
@@ -10,15 +11,38 @@ import (
 type (
 	Writer struct {
 		header []string
+		opts   writerOps
 		tw     *tabwriter.Writer
 	}
+
+	writerOps struct {
+		output io.Writer
+	}
+
+	WriterOption func(w *writerOps)
 )
 
 // New returns a new instance of the Writer struct.
-func New() Writer {
+func New(opts ...WriterOption) Writer {
+	o := writerOps{
+		output: os.Stdout,
+	}
+
+	for _, opt := range opts {
+		opt(&o)
+	}
+
 	return Writer{
 		header: []string{},
-		tw:     tabwriter.NewWriter(os.Stdout, 10, 1, 5, ' ', 0),
+		opts:   o,
+		tw:     tabwriter.NewWriter(o.output, 10, 1, 5, ' ', 0),
+	}
+}
+
+// WithOutput sets the output field of the writerOps struct.
+func WithOutput(output io.Writer) WriterOption {
+	return func(w *writerOps) {
+		w.output = output
 	}
 }
 

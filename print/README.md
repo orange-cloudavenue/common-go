@@ -29,3 +29,26 @@ func main() {
 STRING           INT       BOOL        SLICE     MAP             STRUCT                   ARRAY     
 I'm a string     1         Enabled     a,b,c     a:1,b:2,c:3     key1:a,key2:b,key3:c     a,b,c   
 ```
+
+## Custom `io.writer`
+
+You can use a custom `io.Writer` to print the table.
+
+```go
+package main
+
+import "github.com/orange-cloudavenue/common-go/print"
+
+func main() {
+ // Create io.writer
+ w := new(bytes.Buffer)
+
+ x := print.New(print.WithOutput(w))
+ x.SetHeader("String", "Int", "Bool", "Slice", "Map", "Struct", "Array")
+ x.AddFields("I'm a string", 1, true, []string{"a", "b", "c"}, map[string]string{"a": "1", "b": "2", "c": "3"}, struct{ key1, key2, key3 string }{"a", "b", "c"}, [3]string{"a", "b", "c"})
+ x.PrintTable()
+
+ // Print the output
+ println(w.String())
+}
+```
