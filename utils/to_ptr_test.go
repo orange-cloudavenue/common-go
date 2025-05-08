@@ -10,6 +10,7 @@
 package utils
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -20,39 +21,43 @@ func ExampleToPTR() {
 	// Example usage of ToPTR function
 	str := "Hello, World!"
 	ptr := ToPTR(str)
-	println(reflect.TypeOf(ptr).Kind()) // Output: reflect.Ptr
+	fmt.Println(reflect.TypeOf(ptr).Kind().String()) // Output: ptr
 }
 
 func TestToPTR(t *testing.T) {
 	t.Parallel()
 
 	t.Run("int", func(t *testing.T) {
+		t.Parallel()
 		val := 42
-		ptr := utils.ToPTR(val)
+		ptr := ToPTR(val)
 		assert.NotNil(t, ptr)
 		assert.Equal(t, val, *ptr)
 	})
 
 	t.Run("string", func(t *testing.T) {
+		t.Parallel()
 		val := "hello"
-		ptr := utils.ToPTR(val)
+		ptr := ToPTR(val)
 		assert.NotNil(t, ptr)
 		assert.Equal(t, val, *ptr)
 	})
 
 	t.Run("struct", func(t *testing.T) {
+		t.Parallel()
 		type Sample struct {
 			Field string
 		}
 		val := Sample{Field: "test"}
-		ptr := utils.ToPTR(val)
+		ptr := ToPTR(val)
 		assert.NotNil(t, ptr)
 		assert.Equal(t, val, *ptr)
 	})
 
 	t.Run("nilable type", func(t *testing.T) {
+		t.Parallel()
 		var val *int
-		ptr := utils.ToPTR(val)
+		ptr := ToPTR(val)
 		assert.NotNil(t, ptr)
 		assert.Equal(t, val, *ptr)
 	})
@@ -63,7 +68,10 @@ func ExampleToPTRSlice() {
 	strs := []string{"Hello", "World"}
 	ptrs := ToPTRSlice(strs)
 	for _, ptr := range ptrs {
-		println(reflect.TypeOf(ptr).Kind()) // Output: reflect.Ptr
+		fmt.Println(reflect.TypeOf(ptr).Kind().String())
+		// Output:
+		// ptr
+		// ptr
 	}
 }
 
@@ -71,6 +79,7 @@ func TestToPTRSlice(t *testing.T) {
 	t.Parallel()
 
 	t.Run("int slice", func(t *testing.T) {
+		t.Parallel()
 		vals := []int{1, 2, 3}
 		ptrs := ToPTRSlice(vals)
 		assert.NotNil(t, ptrs)
@@ -82,6 +91,7 @@ func TestToPTRSlice(t *testing.T) {
 	})
 
 	t.Run("string slice", func(t *testing.T) {
+		t.Parallel()
 		vals := []string{"a", "b", "c"}
 		ptrs := ToPTRSlice(vals)
 		assert.NotNil(t, ptrs)
@@ -93,6 +103,7 @@ func TestToPTRSlice(t *testing.T) {
 	})
 
 	t.Run("struct slice", func(t *testing.T) {
+		t.Parallel()
 		type Sample struct {
 			Field string
 		}
@@ -107,12 +118,14 @@ func TestToPTRSlice(t *testing.T) {
 	})
 
 	t.Run("empty slice", func(t *testing.T) {
+		t.Parallel()
 		vals := []int{}
 		ptrs := ToPTRSlice(vals)
 		assert.Nil(t, ptrs)
 	})
 
 	t.Run("nil slice", func(t *testing.T) {
+		t.Parallel()
 		var vals []int
 		ptrs := ToPTRSlice(vals)
 		assert.Nil(t, ptrs)
