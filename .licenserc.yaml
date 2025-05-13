@@ -47,6 +47,7 @@ header: # `header` section is configurations for source codes license header.
     - "**/*.tmpl"
     - "**/*.tf"
     - ".changelog/"
+    - "**/.changelog/"
     - ".archive/"
     - ".github/"
     - ".vscode/"
