@@ -1,3 +1,0 @@
-```release-note:feature
-`validators` - Added new package `validators` to validate the struct or a variable.
-```
