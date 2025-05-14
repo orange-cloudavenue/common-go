@@ -1,0 +1,3 @@
+```release-note:feature
+`validators` - Added new feature `default` to validate a default in a struct.
+```

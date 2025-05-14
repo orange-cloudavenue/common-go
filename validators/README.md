@@ -14,6 +14,7 @@ This package provides a set of custom validators for Go applications, built on t
   - `key_value`: Validates key-value pairs. (e.g., `key=value`).
   - `disallow_upper`: Ensures a string does not contain uppercase letters.
   - `disallow_space`: Ensures a string does not contain spaces.
+  - `default`: Validates if a value is the default value for its type (e.g., `0` for `int`, `""` for `string`).
 
 - **Easy Integration**: The package provides a `New()` function to create and configure a validator instance with all custom validations pre-registered.
 
