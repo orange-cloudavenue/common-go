@@ -5,11 +5,15 @@ This package provides a set of custom validators for Go applications, built on t
 ## Features
 
 - **Custom Validators**:
-  - `ipv4_range`: Validates if a string represents a valid IPv4 range (e.g., `192.168.0.1-192.168.0.100`).
-  - `tcp_udp_port`: Validates if a value is a valid TCP or UDP port. (e.g., `80`, `443`).
-  - `tcp_udp_port_range`: Validates if a string represents a valid range of TCP/UDP ports. (e.g., `8000-8080`).
+  - `default`: Is a special validator to set a defaut value if a value is not provided.
+  - `disallow_space`: Ensures a string does not contain spaces.
+  - `disallow_upper`: Ensures a string does not contain uppercase letters.
   - `http_status_code`: Validates if a value is a valid HTTP status code. (e.g., `200`, `404`).
   - `http_status_code_range`: Validates if a string represents a valid range of HTTP status codes. (e.g., `200-299`).
+  - `ipv4_range`: Validates if a string represents a valid IPv4 range (e.g., `192.168.0.1-192.168.0.100`).
+  - `key_value`: Validates key-value pairs. (e.g., `key=value`).
+  - `tcp_udp_port`: Validates if a value is a valid TCP or UDP port. (e.g., `80`, `443`).
+  - `tcp_udp_port_range`: Validates if a string represents a valid range of TCP/UDP ports. (e.g., `8000-8080`).
   - `urn`: Validates if a string is a valid URN.
   - `key_value`: Validates key-value pairs. (e.g., `key=value`).
   - `disallow_upper`: Ensures a string does not contain uppercase letters.

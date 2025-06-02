@@ -3,7 +3,6 @@ module github.com/orange-cloudavenue/common-go/validators
 go 1.24.2
 
 require (
-	github.com/creasty/defaults v1.8.0
 	github.com/go-playground/validator/v10 v10.26.0
 	github.com/orange-cloudavenue/cloudavenue-sdk-go v0.25.0
 	github.com/stretchr/testify v1.10.0
