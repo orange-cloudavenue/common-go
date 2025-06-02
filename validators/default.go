@@ -10,58 +10,9 @@
 package validators
 
 import (
-	"reflect"
-	"strconv"
-
-	"github.com/go-playground/validator/v10"
+	"github.com/creasty/defaults"
 )
 
-// Default is a custom validator that sets a default value for a field if it is empty.
-// It is used to ensure that a field has a value even if it is not explicitly set.
-// This is useful for fields that are required to have a value, but may not be set by the user.
-var Default = &CustomValidator{
-	Key: "default",
-	Func: func(fl validator.FieldLevel) bool {
-		if !fl.Field().IsZero() {
-			return true
-		}
-
-		k := fl.Field().Type().Kind()
-
-		switch k {
-		case reflect.String:
-			fl.Field().SetString(fl.Param())
-		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-			i, err := strconv.Atoi(fl.Param())
-			if err != nil {
-				return false
-			}
-			fl.Field().SetInt(int64(i))
-		case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-			i, err := strconv.ParseUint(fl.Param(), 10, 64)
-			if err != nil {
-				return false
-			}
-			fl.Field().SetUint(i)
-		case reflect.Float32, reflect.Float64:
-			f, err := strconv.ParseFloat(fl.Param(), 64)
-			if err != nil {
-				return false
-			}
-			fl.Field().SetFloat(f)
-		case reflect.Bool:
-			b, err := strconv.ParseBool(fl.Param())
-			if err != nil {
-				return false
-			}
-			fl.Field().SetBool(b)
-		default:
-
-			// If the field is not a string, int, float, or bool we can't set a default value
-			// and we should return false to indicate that the validation failed.
-			return false
-		}
-
-		return true
-	},
+func (v *Validator) defaulter(s interface{}) error {
+	return defaults.Set(s)
 }

@@ -9,10 +9,21 @@
 
 package validators
 
-import "github.com/go-playground/validator/v10"
+import (
+	"context"
+	"errors"
+	"reflect"
+
+	"github.com/go-playground/validator/v10"
+)
+
+type Validator struct {
+	*validator.Validate
+}
 
 // New creates a new validator.
-func New() *validator.Validate {
+func New() *Validator {
+
 	v := validator.New(validator.WithRequiredStructEnabled())
 	_ = v.RegisterValidation(DisallowUpper.Key, DisallowUpper.Func)
 	_ = v.RegisterValidation(DisallowSpace.Key, DisallowSpace.Func)
@@ -28,8 +39,39 @@ func New() *validator.Validate {
 	_ = v.RegisterValidation(HTTPStatusCode.Key, HTTPStatusCode.Func)
 	_ = v.RegisterValidation(HTTPStatusCodeRange.Key, HTTPStatusCodeRange.Func)
 
-	// * Default
-	_ = v.RegisterValidation(Default.Key, Default.Func)
+	return &Validator{
+		Validate: v,
+	}
+}
 
-	return v
+func (v *Validator) Struct(s interface{}) error {
+	if reflect.ValueOf(s).Kind() != reflect.Ptr {
+		return errors.New("validator: Struct() expects a pointer to a struct")
+	}
+
+	if err := v.Validate.Struct(s); err != nil {
+		return err
+	}
+
+	if err := v.defaulter(s); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (v *Validator) StructCtx(ctx context.Context, s interface{}) error {
+	if reflect.ValueOf(s).Kind() != reflect.Ptr {
+		return errors.New("validator: StructCtx() expects a pointer to a struct")
+	}
+
+	if err := v.Validate.StructCtx(ctx, s); err != nil {
+		return err
+	}
+
+	if err := v.defaulter(s); err != nil {
+		return err
+	}
+
+	return nil
 }

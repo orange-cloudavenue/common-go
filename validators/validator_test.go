@@ -10,9 +10,11 @@
 package validators_test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/orange-cloudavenue/common-go/validators"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCustomValidators(t *testing.T) {
@@ -91,4 +93,37 @@ func TestCustomValidators(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestDefaulter(t *testing.T) {
+	t.Parallel()
+	type defaultTest struct {
+		Field1      string  `default:"default_value"`
+		Field2      int     `default:"42"`
+		Field3      bool    `default:"true"`
+		Field4      float64 `default:"3.14"`
+		Field5      uint64  `default:"1000"`
+		FieldStruct struct {
+			SubField1 string `default:"sub_default_value"`
+			SubField2 int    `default:"100"`
+		}
+	}
+
+	v := validators.New()
+	defaults := defaultTest{}
+	if err := v.Struct(&defaults); err != nil {
+		t.Errorf("expected no error when setting defaults: %v", err)
+	}
+
+	if err := v.StructCtx(context.Background(), &defaults); err != nil {
+		t.Errorf("expected no error when setting defaults with context: %v", err)
+	}
+
+	assert.Equal(t, "default_value", defaults.Field1, "Field1 should have default value")
+	assert.Equal(t, 42, defaults.Field2, "Field2 should have default value")
+	assert.Equal(t, true, defaults.Field3, "Field3 should have default value")
+	assert.Equal(t, 3.14, defaults.Field4, "Field4 should have default value")
+	assert.Equal(t, uint64(1000), defaults.Field5, "Field5 should have default value")
+	assert.Equal(t, "sub_default_value", defaults.FieldStruct.SubField1, "SubField1 should have default value")
+	assert.Equal(t, 100, defaults.FieldStruct.SubField2, "SubField2 should have default value")
 }
