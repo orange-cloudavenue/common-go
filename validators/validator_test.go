@@ -99,7 +99,7 @@ func TestDefaulter(t *testing.T) {
 	t.Parallel()
 	type defaultTest struct {
 		Field1      string  `default:"default_value"`
-		Field2      int     `default:"42"`
+		Field2      int     `default:"-42"`
 		Field3      bool    `default:"true"`
 		Field4      float64 `default:"3.14"`
 		Field5      uint64  `default:"1000"`
@@ -120,7 +120,7 @@ func TestDefaulter(t *testing.T) {
 	}
 
 	assert.Equal(t, "default_value", defaults.Field1, "Field1 should have default value")
-	assert.Equal(t, 42, defaults.Field2, "Field2 should have default value")
+	assert.Equal(t, -42, defaults.Field2, "Field2 should have default value")
 	assert.Equal(t, true, defaults.Field3, "Field3 should have default value")
 	assert.Equal(t, 3.14, defaults.Field4, "Field4 should have default value")
 	assert.Equal(t, uint64(1000), defaults.Field5, "Field5 should have default value")
