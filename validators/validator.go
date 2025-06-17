@@ -49,11 +49,11 @@ func (v *Validator) Struct(s interface{}) error {
 		return errors.New("validator: Struct() expects a pointer to a struct")
 	}
 
-	if err := v.Validate.Struct(s); err != nil {
+	if err := v.defaulter(s); err != nil {
 		return err
 	}
 
-	if err := v.defaulter(s); err != nil {
+	if err := v.Validate.Struct(s); err != nil {
 		return err
 	}
 
@@ -65,11 +65,11 @@ func (v *Validator) StructCtx(ctx context.Context, s interface{}) error {
 		return errors.New("validator: StructCtx() expects a pointer to a struct")
 	}
 
-	if err := v.Validate.StructCtx(ctx, s); err != nil {
+	if err := v.defaulter(s); err != nil {
 		return err
 	}
 
-	if err := v.defaulter(s); err != nil {
+	if err := v.Validate.StructCtx(ctx, s); err != nil {
 		return err
 	}
 
