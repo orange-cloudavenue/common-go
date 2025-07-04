@@ -1,0 +1,3 @@
+```release-note:feature
+`utils` - Add new functions `ToPTR` and ToPTRSlice` to convert a value to a pointer and a slice of pointers respectively. This is useful for creating slices of pointers to values without needing to manually create each pointer.
+```
