@@ -4,7 +4,7 @@ go 1.24.4
 
 require (
 	github.com/brianvoe/gofakeit/v7 v7.3.0
-	github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250708123627-846fd868837a
+	github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250709092820-8b0454f8cf98
 	github.com/orange-cloudavenue/common-go/urn v1.0.0
 )
 
