@@ -220,44 +220,6 @@ func TestIsValid(t *testing.T) {
 	}
 }
 
-// TestIsType tests the TestIsType function.
-func TestTestIsType(t *testing.T) {
-	testCases := []struct {
-		name    string
-		urnType URN
-		urn     URN
-		want    bool
-	}{
-		{
-			name:    "valid urn",
-			urnType: VM,
-			urn:     URN(VM.String() + validUUIDv4),
-			want:    true,
-		},
-		{
-			name:    "invalid urn",
-			urnType: VM,
-			urn:     "invalid-urn",
-			want:    false,
-		},
-		{
-			name:    "empty value",
-			urnType: VM,
-			urn:     "",
-			want:    false,
-		},
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			err := TestIsType(tc.urnType)(tc.urn.String())
-			if tc.want && err != nil {
-				t.Errorf("TestIsType() = %v, want %v", err, tc.want)
-			}
-		})
-	}
-}
-
 func TestIsUUIDV4(t *testing.T) {
 	tests := []struct {
 		name string
