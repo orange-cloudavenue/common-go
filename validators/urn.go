@@ -14,7 +14,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 
-	"github.com/orange-cloudavenue/cloudavenue-sdk-go/pkg/urn"
+	"github.com/orange-cloudavenue/common-go/urn"
 )
 
 // URN is a validator that checks if a string is a valid URN (Uniform Resource Name).

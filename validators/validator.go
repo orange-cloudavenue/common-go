@@ -23,10 +23,10 @@ type Validator struct {
 
 // New creates a new validator.
 func New() *Validator {
-
 	v := validator.New(validator.WithRequiredStructEnabled())
 	_ = v.RegisterValidation(DisallowUpper.Key, DisallowUpper.Func)
 	_ = v.RegisterValidation(DisallowSpace.Key, DisallowSpace.Func)
+	_ = v.RegisterValidation(Case.Key, Case.Func)
 	_ = v.RegisterValidation(KeyValue.Key, KeyValue.Func)
 	_ = v.RegisterValidation(URN.Key, URN.Func)
 
@@ -38,6 +38,14 @@ func New() *Validator {
 	// * HTTP
 	_ = v.RegisterValidation(HTTPStatusCode.Key, HTTPStatusCode.Func)
 	_ = v.RegisterValidation(HTTPStatusCodeRange.Key, HTTPStatusCodeRange.Func)
+
+	// * Require/Exclude
+	_ = v.RegisterValidation(RequireIfNull.Key, RequireIfNull.Func)
+	_ = v.RegisterValidation(ExcludeIfNull.Key, ExcludeIfNull.Func)
+
+	// * CAV
+	_ = v.RegisterValidation(CAVT0Name.Key, CAVT0Name.Func)
+	_ = v.RegisterValidation(CAVEdgeGatewayName.Key, CAVEdgeGatewayName.Func)
 
 	return &Validator{
 		Validate: v,

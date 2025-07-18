@@ -10,11 +10,11 @@
 package validators_test
 
 import (
-	"context"
 	"testing"
 
-	"github.com/orange-cloudavenue/common-go/validators"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/orange-cloudavenue/common-go/validators"
 )
 
 func TestCustomValidators(t *testing.T) {
@@ -47,7 +47,7 @@ func TestCustomValidators(t *testing.T) {
 		"urn": {
 			valuesWork:        []any{"urn:vcloud:gateway:4aeb40d8-038c-4e77-8181-a7054f583b12"},
 			valuesDoesNotWork: []any{"urn:vcloud:vm:invalid"},
-			rule:              "urn=gateway",
+			rule:              "urn=edgeGateway",
 		},
 		"urn-bad": {
 			valuesWork:        []any{},
@@ -73,6 +73,46 @@ func TestCustomValidators(t *testing.T) {
 			valuesWork:        []any{"key=value", "key=val"},
 			valuesDoesNotWork: []any{"key=value=val", "key=val=val", "key=val=val=val"},
 			rule:              "str_key_value",
+		},
+		"cav_t0_name": {
+			valuesWork:        []any{"prvrf01eocb0001234allsp01", "prvrf01eocb0001234allsp02"},
+			valuesDoesNotWork: []any{"tn01e02ocb0001234spt101", "invalid"},
+			rule:              "t0_name",
+		},
+		"cav_edgegateway_name": {
+			valuesWork:        []any{"tn01e02ocb0001234spt101", "tn01e02ocb0001234spt102"},
+			valuesDoesNotWork: []any{"prvrf01eocb0001234allsp01", "invalid"},
+			rule:              "edgegateway_name",
+		},
+		"case-camelCase": {
+			valuesWork:        []any{"camelCaseExample", "anotherCamelCase"},
+			valuesDoesNotWork: []any{"CamelCase", "camel_case", "kebab-case", "UPPER_CASE"},
+			rule:              "case=camelCase",
+		},
+		"case-snake_case": {
+			valuesWork:        []any{"snake_case_example", "another_snake_case"},
+			valuesDoesNotWork: []any{"snakeCase", "kebab-case", "UPPER_CASE", "CamelCase"},
+			rule:              "case=snake_case",
+		},
+		"case-PascalCase": {
+			valuesWork:        []any{"PascalCaseExample", "AnotherPascalCase"},
+			valuesDoesNotWork: []any{"pascalCase", "snake_case", "kebab-case", "UPPER_CASE"},
+			rule:              "case=PascalCase",
+		},
+		"case-UPPER_CASE": {
+			valuesWork:        []any{"UPPER_CASE_EXAMPLE", "ANOTHER_UPPER_CASE"},
+			valuesDoesNotWork: []any{"upper_case", "kebab-case", "camelCase", "PascalCase"},
+			rule:              "case=UPPER_CASE",
+		},
+		"case-kebab-case": {
+			valuesWork:        []any{"kebab-case-example", "another-kebab-case"},
+			valuesDoesNotWork: []any{"kebabCase", "snake_case", "UPPER_CASE", "PascalCase"},
+			rule:              "case=kebab-case",
+		},
+		"case-invalid-format": {
+			valuesWork:        []any{},
+			valuesDoesNotWork: []any{"invalidCaseFormat"},
+			rule:              "case=invalidFormat",
 		},
 	}
 
@@ -115,7 +155,7 @@ func TestDefaulter(t *testing.T) {
 		t.Errorf("expected no error when setting defaults: %v", err)
 	}
 
-	if err := v.StructCtx(context.Background(), &defaults); err != nil {
+	if err := v.StructCtx(t.Context(), &defaults); err != nil {
 		t.Errorf("expected no error when setting defaults with context: %v", err)
 	}
 
