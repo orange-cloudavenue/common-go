@@ -1,6 +1,7 @@
 package regex
 
 import (
+	"regexp"
 	"testing"
 )
 
@@ -150,6 +151,103 @@ func TestRegex_EdgeGatewayName(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			matches := EdgeGatewayNameRegex().FindAllString(test.input, -1)
+			if len(matches) == 0 && !test.expectedError {
+				t.Errorf("Expected to find a match for %s, but found none", test.input)
+			}
+			if len(matches) > 1 && !test.expectedError {
+				t.Errorf("Expected only one match for %s, but found %d", test.input, len(matches))
+			}
+			if len(matches) == 1 && matches[0] != test.expected {
+				t.Errorf("Expected match %s, got %s", test.expected, matches[0])
+			}
+		})
+	}
+}
+
+// TestRegex_Cases tests the regex patterns for different naming conventions.
+func TestRegex_Cases(t *testing.T) {
+	tests := []struct {
+		name          string
+		input         string
+		expected      string
+		expectedError bool
+		regex         func() *regexp.Regexp
+	}{
+		{
+			name:          "Valid PascalCase",
+			input:         "PascalCaseExample",
+			expected:      "PascalCaseExample",
+			expectedError: false,
+			regex:         PascalCaseRegex,
+		},
+		{
+			name:          "Invalid PascalCase",
+			input:         "pascalcaseexample",
+			expected:      "",
+			expectedError: true,
+			regex:         PascalCaseRegex,
+		},
+		{
+			name:          "Valid CamelCase",
+			input:         "camelCaseExample",
+			expected:      "camelCaseExample",
+			expectedError: false,
+			regex:         CamelCaseRegex,
+		},
+		{
+			name:          "Invalid CamelCase",
+			input:         "CamelCaseExample",
+			expected:      "",
+			expectedError: true,
+			regex:         CamelCaseRegex,
+		},
+		{
+			name:          "Valid Snake_Case",
+			input:         "snake_case_example",
+			expected:      "snake_case_example",
+			expectedError: false,
+			regex:         SnakeCaseRegex,
+		},
+		{
+			name:          "Invalid Snake_Case",
+			input:         "SnakeCaseExample",
+			expected:      "",
+			expectedError: true,
+			regex:         SnakeCaseRegex,
+		},
+		{
+			name:          "Valid Kebab-Case",
+			input:         "kebab-case-example",
+			expected:      "kebab-case-example",
+			expectedError: false,
+			regex:         KebabCaseRegex,
+		},
+		{
+			name:          "Invalid Kebab-Case",
+			input:         "KebabCaseExample",
+			expected:      "",
+			expectedError: true,
+			regex:         KebabCaseRegex,
+		},
+		{
+			name:          "Valid UPPER_CASE",
+			input:         "UPPER_CASE_EXAMPLE",
+			expected:      "UPPER_CASE_EXAMPLE",
+			expectedError: false,
+			regex:         UpperCaseRegex,
+		},
+		{
+			name:          "Invalid UPPER_CASE",
+			input:         "UpperCaseExample",
+			expected:      "",
+			expectedError: true,
+			regex:         UpperCaseRegex,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			matches := test.regex().FindAllString(test.input, -1)
 			if len(matches) == 0 && !test.expectedError {
 				t.Errorf("Expected to find a match for %s, but found none", test.input)
 			}
