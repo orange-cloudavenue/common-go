@@ -10,10 +10,7 @@ const (
 	URNWithUUID4RegexString = `(?m)urn:[A-Za-z0-9][A-Za-z0-9-]{0,31}:([A-Za-z0-9()+,\-.:=@;$_!*']|%[0-9A-Fa-f]{2})+` + UUID4RegexString
 
 	// * Cloudavenue
-	// T0 name (pr01e02ocb0001234spt101)
-	T0NameRegexString = `^pr(vrf)?(?<siteCode>[0-9]{2})?(?<workloadType>[a-z]{1})(?<contractId>[a-z0-9]{10})(?<serviceType>[a-z]{2,6})(?<linkType>[a-z]{2})(?<increment>[0-9]{2,3})`
-	// edgegateway(t1) name (tn01e02ocb0001234spt101)
-	EdgeGatewayNameRegexString = `^tn(?<siteCode>[0-9]{2})?(?<workloadType>[a-z]{1})(?<workload>[0-9]{2})(?<contractId>[a-z0-9]{10})(?<serviceType>[a-z]{2,6})t1(?<increment>[0-9]{2,5})`
+	// Resource Names Regex declared in internal/regex/resource_name.go
 
 	// * Cases
 	PascalCaseRegexString = `^[A-Z](([a-z0-9]+[A-Z]?)*)$`
