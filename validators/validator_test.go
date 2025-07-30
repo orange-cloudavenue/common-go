@@ -74,15 +74,10 @@ func TestCustomValidators(t *testing.T) {
 			valuesDoesNotWork: []any{"key=value=val", "key=val=val", "key=val=val=val"},
 			rule:              "str_key_value",
 		},
-		"cav_t0_name": {
-			valuesWork:        []any{"prvrf01eocb0001234allsp01", "prvrf01eocb0001234allsp02"},
-			valuesDoesNotWork: []any{"tn01e02ocb0001234spt101", "invalid"},
-			rule:              "t0_name",
-		},
-		"cav_edgegateway_name": {
+		"cav_resource_name": {
 			valuesWork:        []any{"tn01e02ocb0001234spt101", "tn01e02ocb0001234spt102"},
 			valuesDoesNotWork: []any{"prvrf01eocb0001234allsp01", "invalid"},
-			rule:              "edgegateway_name",
+			rule:              "resource_name=edgegateway",
 		},
 		"case-camelCase": {
 			valuesWork:        []any{"camelCaseExample", "anotherCamelCase"},

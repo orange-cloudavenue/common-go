@@ -21,6 +21,8 @@ github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e h1:fD57ERR4JtEqsWb
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250718073934-40f61889caee h1:CTT+lzAF1Z8wvD/97rtLog9s3dlop9IeTtXXnlY0tRc=
 github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250718073934-40f61889caee/go.mod h1:T7OxerHaO1q+P6ue/Ka93aoUQK8syveiYhfZaJBMfP0=
+github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195615-a2902a82caeb h1:gbpZVoXRWc6tG/U/f/aTQqwKgAm199wB11bJOIAhJjk=
+github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195615-a2902a82caeb/go.mod h1:T7OxerHaO1q+P6ue/Ka93aoUQK8syveiYhfZaJBMfP0=
 github.com/orange-cloudavenue/common-go/urn v1.0.1 h1:C71jGGCJYxbM9N65eoLBRxpGj3Uldt31pjstGyPlFII=
 github.com/orange-cloudavenue/common-go/urn v1.0.1/go.mod h1:yXpk5u8KLhpCxmR6uugaKZB/YgsrGg08TZ5XQdybHKs=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

@@ -44,8 +44,7 @@ func New() *Validator {
 	_ = v.RegisterValidation(ExcludeIfNull.Key, ExcludeIfNull.Func)
 
 	// * CAV
-	_ = v.RegisterValidation(CAVT0Name.Key, CAVT0Name.Func)
-	_ = v.RegisterValidation(CAVEdgeGatewayName.Key, CAVEdgeGatewayName.Func)
+	_ = v.RegisterValidation(CAVResourceName.Key, CAVResourceName.Func)
 
 	return &Validator{
 		Validate: v,

@@ -7,18 +7,22 @@ import (
 )
 
 var (
-	// CAVEdgeGatewayName is a validator that checks if a string is a valid CAV Edge Gateway name.
-	CAVEdgeGatewayName = &CustomValidator{
-		Key: "edgegateway_name",
-		Func: func(fl validator.FieldLevel) bool {
-			return regex.EdgeGatewayNameRegex().MatchString(fl.Field().String())
-		},
-	}
+	// ReExport ListCavResourceNames for external use.
+	ListCavResourceNames = regex.ListCavResourceNames
 
-	CAVT0Name = &CustomValidator{
-		Key: "t0_name",
+	// CAVResourceName is a validator that checks if a string is a valid CAV resource name.
+	// The list of valid resource names is defined in regex.ListCavResourceNames.
+	// Usage: `validate:"resource_name=resource_key"`
+	// E.g. `validate:"resource_name=edgegateway"`
+	CAVResourceName = &CustomValidator{
+		Key: "resource_name",
 		Func: func(fl validator.FieldLevel) bool {
-			return regex.T0NameRegex().MatchString(fl.Field().String())
+			for _, resource := range regex.ListCavResourceNames {
+				if fl.Param() == resource.Key {
+					return resource.RegexP.MatchString(fl.Field().String())
+				}
+			}
+			return false
 		},
 	}
 )
