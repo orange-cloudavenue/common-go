@@ -14,7 +14,7 @@ func init() {
 		Example:     "urn:vcloud:gateway:12345678-1234-4234-1234-123456789012",
 		Output:      "string",
 		Params: []gofakeit.Param{
-			{Field: "urnType", Type: "string", Description: "The type of the URN, e.g., 'vcloud', 'service', etc."},
+			{Field: "urnType", Type: "string", Description: "The type of the URN, e.g., 'edgegateway', 'vdc', etc."},
 		},
 		Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 			urnType, _ := info.GetString(m, "urnType")

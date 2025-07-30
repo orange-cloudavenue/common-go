@@ -11,9 +11,7 @@ Below is a summary of all custom generators provided by this library, grouped by
 
 | Name               | Description                                            | Example                                   |
 |--------------------|--------------------------------------------------------|-------------------------------------------|
-| `edgegateway_name` | Generate a new EdgeGateway name matching conventions   | `tn01e02ocb0001234spt101`                 |
-| `t0_name`          | Generate a new T0 router name matching conventions     | `pr01e02ocb0001234spt101`                 |
-| `urn`              | Generate a new URN with a custom type (see params)     | `urn:vcloud:gateway:12345678-1234-4234-1234-123456789012` |
+| `resource_name:<resourcekey>` | Generate a new resource name matching conventions. For a complete list of resource keys, see the documentation here: [https://pkg.go.dev/github.com/orange-cloudavenue/common-go/internal/regex#pkg-variables](https://pkg.go.dev/github.com/orange-cloudavenue/common-go/internal/regex#pkg-variables) | `tn01e02ocb0001234spt101`                 |
 
 ### String Format Generators
 
@@ -31,14 +29,11 @@ Below is a summary of all custom generators provided by this library, grouped by
 |--------------|--------------------------------------|-------------------------|
 | `href_uuid`        | Generate a random URL ending with a UUID               | `https://example.com/590c1440-9888-45b0-bd51-a817ee07c3f2` |
 
-### URN Generator Parameters
+### URN Generator
 
 | Name   | Description                                      | Example                        |
 |--------|--------------------------------------------------|--------------------------------|
-| `urn`  | Accepts parameter `urnType` (e.g., `vm`, `gateway`) to specify the URN type | `urn:vcloud:gateway:...`       |
-
-For a complete list of available URN types, see the documentation here:  
-[https://pkg.go.dev/github.com/orange-cloudavenue/common-go/urn#pkg-variables](https://pkg.go.dev/github.com/orange-cloudavenue/common-go/urn#pkg-variables)
+| `urn`  | Accepts parameter `urnType` (e.g., `vm`, `gateway`) to specify the URN type. For a complete list of available URN types, see the documentation here: [https://pkg.go.dev/github.com/orange-cloudavenue/common-go/urn#pkg-variables](https://pkg.go.dev/github.com/orange-cloudavenue/common-go/urn#pkg-variables) | `urn:vcloud:gateway:...`       |
 
 ## Usage
 
@@ -48,8 +43,8 @@ You can use these generators with the `Struct`, `Template`, `Generate`, and `Reg
 import "github.com/orange-cloudavenue/common-go/generator"
 
 type MyStruct struct {
-    Name string `fake:"{edgegateway_name}"`
-    URN  string `fake:"{urn:edgeGateway}"`
+    Name string `fake:"{resource_name:edgegateway}"`
+    URN  string `fake:"{urn:edgegateway}"`
     HREF string `fake:"{href_uuid}"`
 }
 
@@ -59,11 +54,10 @@ generator.Struct(&myStruct)
 Resulting Data:
 
 ```go
-myStruct := MyStruct{
-    Name: "tn01e02ocb0001234spt101",
-    URN:  "urn:vcloud:gateway:12345678-1234-4234-1234-123456789012",
-    HREF: "https://example.com/590c1440-9888-45b0-bd51-a817ee07c3f2",
-}
+> MyStruct
+>   Name: "tn01e02ocb0001234spt101"
+>   URN:  "urn:vcloud:gateway:12345678-1234-4234-1234-123456789012"
+>   HREF: "https://example.com/590c1440-9888-45b0-bd51-a817ee07c3f2"
 ```
 
 ## Other Generators
