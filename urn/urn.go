@@ -76,7 +76,7 @@ var URNByNames = map[string]URN{
 	"vm":                         VM,
 	"user":                       User,
 	"group":                      Group,
-	"edgeGateway":                EdgeGateway,
+	"edgegateway":                EdgeGateway,
 	"vdc":                        VDC,
 	"vdcGroup":                   VDCGroup,
 	"vdcComputePolicy":           VDCComputePolicy,
