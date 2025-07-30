@@ -2,7 +2,7 @@
 
 ## Description
 
-`print` is a supercharged version of the `tabwriter` package. It provides a `SetHeader` method to set a header for the table, and a `AddFields` method to add lines to the table. It also provides a `PrintTable` method to print the table to a writer.
+`print` is a supercharged version of the [`tabwriter`](https://pkg.go.dev/text/tabwriter) package. It provides a `SetHeader` method to set a header for the table, and a `AddFields` method to add lines to the table. It also provides a `PrintTable` method to print the table to a writer.
 
 `print` don't use external dependencies.
 
