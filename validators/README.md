@@ -24,8 +24,7 @@ This package provides a set of custom validators for Go applications, built on t
 | Name               | Description                                                        | Parameters | Example                        |
 |--------------------|--------------------------------------------------------------------|------------|--------------------------------|
 | `urn=typeOfURN`    | Validates if a string is a valid URN. For a complete list of available URN types, see the documentation here: [https://pkg.go.dev/github.com/orange-cloudavenue/common-go/urn#pkg-variables](https://pkg.go.dev/github.com/orange-cloudavenue/common-go/urn#pkg-variables) | `typeOfURN` | `urn:vcloud:gateway:...`       |
-| `edgegateway_name` | Validates if a string is a valid CAV Edge Gateway name             |      ➖      | `tn01e02ocb0001234spt101`      |
-| `t0_name`          | Validates if a string is a valid CAV T0 router name                |      ➖      | `prvrf01eocb0001234allsp01`    |
+| `resource_name=resourceKey` | Validates if a string is a valid CAV resource name for the given resource key | `resourceKey` | `tn01e02ocb0001234spt101` (for `edgegateway`), `prvrf01eocb0001234allsp01` (for `t0_name`) For a complete list of resource keys, see the documentation here: [https://pkg.go.dev/github.com/orange-cloudavenue/common-go/internal/regex#pkg-variables](https://pkg.go.dev/github.com/orange-cloudavenue/common-go/internal/regex#pkg-variables) |
 
 ### Key/Value Validators
 
@@ -108,7 +107,7 @@ func main() {
         Port:    8080,
     }
 
-    err := validators.New().Struct(example)
+    err := validators.New().Struct(&example)
     if err != nil {
         panic(err)
     }
