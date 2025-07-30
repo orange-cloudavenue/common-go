@@ -1,8 +1,6 @@
 github.com/brianvoe/gofakeit/v7 v7.3.0 h1:TWStf7/lLpAjKw+bqwzeORo9jvrxToWEwp9b1J2vApQ=
 github.com/brianvoe/gofakeit/v7 v7.3.0/go.mod h1:QXuPeBw164PJCzCUZVmgpgHJ3Llj49jSLVkKPMtxtxA=
-github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195308-66fc64cfe714 h1:44CswkGa2mj+hMU0P0qEf3Hmddrd8YD+39BFkeadDds=
-github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195308-66fc64cfe714/go.mod h1:T7OxerHaO1q+P6ue/Ka93aoUQK8syveiYhfZaJBMfP0=
 github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195615-a2902a82caeb h1:gbpZVoXRWc6tG/U/f/aTQqwKgAm199wB11bJOIAhJjk=
 github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195615-a2902a82caeb/go.mod h1:T7OxerHaO1q+P6ue/Ka93aoUQK8syveiYhfZaJBMfP0=
-github.com/orange-cloudavenue/common-go/urn v1.0.1 h1:C71jGGCJYxbM9N65eoLBRxpGj3Uldt31pjstGyPlFII=
-github.com/orange-cloudavenue/common-go/urn v1.0.1/go.mod h1:yXpk5u8KLhpCxmR6uugaKZB/YgsrGg08TZ5XQdybHKs=
+github.com/orange-cloudavenue/common-go/urn v1.1.0 h1:tiEB8nq7RkIOHv4HnmgdxbKnug+X97fpINI9bwcTi2Y=
+github.com/orange-cloudavenue/common-go/urn v1.1.0/go.mod h1:yXpk5u8KLhpCxmR6uugaKZB/YgsrGg08TZ5XQdybHKs=

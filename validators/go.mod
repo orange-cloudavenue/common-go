@@ -8,7 +8,7 @@ require (
 	github.com/creasty/defaults v1.8.0
 	github.com/go-playground/validator/v10 v10.27.0
 	github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195615-a2902a82caeb
-	github.com/orange-cloudavenue/common-go/urn v1.0.1
+	github.com/orange-cloudavenue/common-go/urn v1.1.0
 	github.com/stretchr/testify v1.10.0
 )
 
