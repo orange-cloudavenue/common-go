@@ -1,34 +1,50 @@
 package generator
 
 import (
+	"fmt"
+
 	"github.com/brianvoe/gofakeit/v7"
 
 	"github.com/orange-cloudavenue/common-go/internal/regex"
 )
 
 func init() {
-	// Register the URN generator function
-	gofakeit.AddFuncLookup("edgegateway_name", gofakeit.Info{
+	// Register the CAV resource name generator function
+	// Usage: {resource_name:edgegateway}
+	gofakeit.AddFuncLookup("resource_name", gofakeit.Info{
 		Category:    "cloudavenue",
-		Display:     "EdgeGateway",
-		Description: "Generate a new EdgeGateway name",
+		Display:     "ResourceName",
+		Description: "Generate a new CAV resource name",
 		Example:     "tn01e02ocb0001234spt101",
 		Output:      "string",
-		Generate: func(f *gofakeit.Faker, _ *gofakeit.MapParams, _ *gofakeit.Info) (any, error) {
-			// Generate a random EdgeGateway name based on the regex pattern
-			return f.Regex(regex.EdgeGatewayNameRegexString), nil
+		Params: []gofakeit.Param{
+			{Field: "ress", Display: "CAV Resource Name", Type: "string", Description: "The name of the CAV resource (e.g., edgegateway, t0, etc.)", Options: func() []string {
+				listOfAllowedValues := make([]string, 0)
+				for _, r := range regex.ListCavResourceNames {
+					listOfAllowedValues = append(listOfAllowedValues, r.Key)
+				}
+				return listOfAllowedValues
+			}()},
 		},
-	})
+		Generate: func(f *gofakeit.Faker, params *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+			param, err := info.GetString(params, "ress")
+			if err != nil {
+				return "", err
+			}
 
-	gofakeit.AddFuncLookup("t0_name", gofakeit.Info{
-		Category:    "cloudavenue",
-		Display:     "T0Name",
-		Description: "Generate a new T0 name",
-		Example:     "pr01e02ocb0001234spt101",
-		Output:      "string",
-		Generate: func(f *gofakeit.Faker, _ *gofakeit.MapParams, _ *gofakeit.Info) (any, error) {
-			// Generate a random T0 name based on the regex pattern
-			return f.Regex(regex.T0NameRegexString), nil
+			var re string
+			for _, r := range regex.ListCavResourceNames {
+				if r.Key == param {
+					re = r.RegexString
+					break
+				}
+			}
+			if re == "" {
+				return "", fmt.Errorf("unknown CAV resource name: %s", param)
+			}
+
+			// Generate a random CAV resource name based on the regex pattern
+			return f.Regex(re), nil
 		},
 	})
 }
