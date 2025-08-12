@@ -13,7 +13,8 @@ import (
 	"strings"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/scaleway/scaleway-sdk-go/strcase"
+
+	"github.com/orange-cloudavenue/common-go/strcase"
 )
 
 var (
