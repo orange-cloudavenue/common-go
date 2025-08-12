@@ -47,7 +47,7 @@ func TestCustomValidators(t *testing.T) {
 		"urn": {
 			valuesWork:        []any{"urn:vcloud:gateway:4aeb40d8-038c-4e77-8181-a7054f583b12"},
 			valuesDoesNotWork: []any{"urn:vcloud:vm:invalid"},
-			rule:              "urn=edgeGateway",
+			rule:              "urn=edgegateway",
 		},
 		"urn-bad": {
 			valuesWork:        []any{},
