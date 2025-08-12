@@ -753,3 +753,35 @@ func TestIsServiceEngineGroup(t *testing.T) {
 		})
 	}
 }
+
+func TestIsSite(t *testing.T) {
+	tests := []struct {
+		name string
+		urn  string
+		want bool
+	}{
+		{ // IsSite
+			name: "IsSite",
+			urn:  URN(Site.String() + validUUIDv4).String(),
+			want: true,
+		},
+		{ // IsNotSite
+			name: "IsNotSite",
+			urn:  URN("urn:vcloud:vm:f47ac10b-58cc-4372-a567-0e02b2c3d4791").String(),
+			want: false,
+		},
+		{ // Empty string
+			name: "EmptyString",
+			urn:  URN("").String(),
+			want: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := IsSite(tt.urn); got != tt.want {
+				t.Errorf("IsSite() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

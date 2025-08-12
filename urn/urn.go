@@ -41,6 +41,7 @@ const (
 	LoadBalancerPool           = URN(VcloudPrefix + "loadBalancerPool:")
 	LoadBalancerVirtualService = URN(VcloudPrefix + "loadBalancerVirtualService:")
 	ServiceEngineGroup         = URN(VcloudPrefix + "serviceEngineGroup:")
+	Site                       = URN(VcloudPrefix + "site:")
 
 	// * CLOUDAVENUE.
 	VCDA = URN(CloudAvenuePrefix + "vcda:")
@@ -69,6 +70,7 @@ var URNs = []URN{
 	LoadBalancerVirtualService,
 	ServiceEngineGroup,
 	VCDA,
+	Site,
 }
 
 var URNByNames = map[string]URN{
@@ -94,6 +96,7 @@ var URNByNames = map[string]URN{
 	"loadBalancerVirtualService": LoadBalancerVirtualService,
 	"serviceEngineGroup":         ServiceEngineGroup,
 	"vcda":                       VCDA,
+	"site":                       Site,
 }
 
 type (

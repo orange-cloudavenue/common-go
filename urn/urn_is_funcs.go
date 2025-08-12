@@ -118,3 +118,8 @@ func IsLoadBalancerVirtualService(urn string) bool {
 func IsServiceEngineGroup(urn string) bool {
 	return URN(urn).IsType(ServiceEngineGroup)
 }
+
+// IsSite returns true if the URN is a Site URN.
+func IsSite(urn string) bool {
+	return URN(urn).IsType(Site)
+}

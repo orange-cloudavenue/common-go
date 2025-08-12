@@ -118,3 +118,8 @@ func (urn URN) IsServiceEngineGroup() bool {
 func (urn URN) IsVCDA() bool {
 	return urn.IsType(VCDA)
 }
+
+// IsSite returns true if the URN is a Site URN.
+func (urn URN) IsSite() bool {
+	return urn.IsType(Site)
+}
