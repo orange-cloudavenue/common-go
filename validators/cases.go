@@ -14,7 +14,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 
-	"github.com/orange-cloudavenue/common-go/internal/regex"
+	"github.com/orange-cloudavenue/common-go/regex"
 )
 
 var (

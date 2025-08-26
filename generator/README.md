@@ -11,7 +11,7 @@ Below is a summary of all custom generators provided by this library, grouped by
 
 | Name               | Description                                            | Example                                   |
 |--------------------|--------------------------------------------------------|-------------------------------------------|
-| `resource_name:<resourcekey>` | Generate a new resource name matching conventions. For a complete list of resource keys, see the documentation here: [https://pkg.go.dev/github.com/orange-cloudavenue/common-go/internal/regex#pkg-variables](https://pkg.go.dev/github.com/orange-cloudavenue/common-go/internal/regex#pkg-variables) | `tn01e02ocb0001234spt101`                 |
+| `resource_name:<resourcekey>` | Generate a new resource name matching conventions. For a complete list of resource keys, see the documentation here: [https://pkg.go.dev/github.com/orange-cloudavenue/common-go/regex#pkg-variables](https://pkg.go.dev/github.com/orange-cloudavenue/common-go/regex#pkg-variables) | `tn01e02ocb0001234spt101`                 |
 
 ### String Format Generators
 

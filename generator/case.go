@@ -12,7 +12,7 @@ package generator
 import (
 	"github.com/brianvoe/gofakeit/v7"
 
-	"github.com/orange-cloudavenue/common-go/internal/regex"
+	"github.com/orange-cloudavenue/common-go/regex"
 )
 
 func init() {

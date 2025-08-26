@@ -12,7 +12,7 @@ package generator
 import (
 	"testing"
 
-	"github.com/orange-cloudavenue/common-go/internal/regex"
+	"github.com/orange-cloudavenue/common-go/regex"
 )
 
 func TestGenerator_CAVResourceName(t *testing.T) {

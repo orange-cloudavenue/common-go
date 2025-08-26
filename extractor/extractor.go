@@ -12,7 +12,7 @@ package extractor
 import (
 	"fmt"
 
-	"github.com/orange-cloudavenue/common-go/internal/regex"
+	"github.com/orange-cloudavenue/common-go/regex"
 )
 
 // ExtractUUID extract the UUID (version 4) found in the input string using a regular expression.

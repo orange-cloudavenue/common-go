@@ -1,6 +1,6 @@
 github.com/brianvoe/gofakeit/v7 v7.3.0 h1:TWStf7/lLpAjKw+bqwzeORo9jvrxToWEwp9b1J2vApQ=
 github.com/brianvoe/gofakeit/v7 v7.3.0/go.mod h1:QXuPeBw164PJCzCUZVmgpgHJ3Llj49jSLVkKPMtxtxA=
-github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195615-a2902a82caeb h1:gbpZVoXRWc6tG/U/f/aTQqwKgAm199wB11bJOIAhJjk=
-github.com/orange-cloudavenue/common-go/internal/regex v0.0.0-20250729195615-a2902a82caeb/go.mod h1:T7OxerHaO1q+P6ue/Ka93aoUQK8syveiYhfZaJBMfP0=
+github.com/orange-cloudavenue/common-go/regex v1.0.1 h1:oAxlsIHLgfvc/Wd+9TOS88acnvku93ovGaLTt6rj8eM=
+github.com/orange-cloudavenue/common-go/regex v1.0.1/go.mod h1:A7DfA7aAObMJ7DQSBPtVxbr54x0G2WDh4qf40RhZF+0=
 github.com/orange-cloudavenue/common-go/urn v1.2.0 h1:FWjMj4aiCJwTb6UAGavthmTTE/KSKGFc3bi2cbNk3r8=
 github.com/orange-cloudavenue/common-go/urn v1.2.0/go.mod h1:yXpk5u8KLhpCxmR6uugaKZB/YgsrGg08TZ5XQdybHKs=
