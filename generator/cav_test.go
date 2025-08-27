@@ -32,6 +32,23 @@ func TestGenerator_CAVResourceName(t *testing.T) {
 	}
 }
 
+func TestGenerator_CAVResourceName_Org(t *testing.T) {
+	type CStruct struct {
+		Name string `fake:"{resource_name:organization}"`
+	}
+
+	var st CStruct
+
+	err := Struct(&st)
+	if err != nil {
+		t.Fatalf("Failed to create template: %v", err)
+	}
+
+	if !regex.OrganizationNameRegex().MatchString(st.Name) {
+		t.Fatalf("Expected CAV resource name to match regex, got %s", st.Name)
+	}
+}
+
 func TestGenerator_CAVResourceName_Invalid(t *testing.T) {
 	type CStruct struct {
 		Name string `fake:"{resource_name:invalid_resource}"`
