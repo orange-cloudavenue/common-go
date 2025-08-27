@@ -16,8 +16,8 @@ const (
 	T0NameRegexString = `^pr(vrf)?(?<siteCode>[0-9]{2})?(?<workloadType>[a-z]{1})(?<contractId>[a-z0-9]{10})(?<serviceType>[a-z]{2,6})(?<linkType>[a-z]{2})(?<increment>[0-9]{2,3})`
 	// edgegateway(t1) name (tn01e02ocb0001234spt101)
 	EdgeGatewayNameRegexString = `^tn(?<siteCode>[0-9]{2})?(?<workloadType>[a-z]{1})(?<workload>[0-9]{2})(?<contractId>[a-z0-9]{10})(?<serviceType>[a-z]{2,6})t1(?<increment>[0-9]{2,5})`
-	// Organization name (cav01ev01ocb0001234)
-	OrganizationNameRegexString = `^cav(?<siteCode>[0-9]{2})(?<workloadType>[a-z]{2})(?<workload>[0-9]{2})(?<contractId>[a-z0-9]{10})`
+	// Organization name (cav01ev01ocb0001234) - https://regex101.com/r/hgYkSE/1
+	OrganizationNameRegexString = `^cav(?<siteCode>[0-9]{2})(?<customerType>[i,e,v])v([0-9]{2})ocb(?<contractId>[0-9]{7})`
 )
 
 type CavResourceName struct {
