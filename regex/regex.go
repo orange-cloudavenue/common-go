@@ -45,8 +45,9 @@ var (
 	URNWithUUID4Regex = lazyRegexCompile(URNWithUUID4RegexString)
 
 	// * Cloudavenue
-	T0NameRegex          = lazyRegexCompile(T0NameRegexString)
-	EdgeGatewayNameRegex = lazyRegexCompile(EdgeGatewayNameRegexString)
+	T0NameRegex           = lazyRegexCompile(T0NameRegexString)
+	EdgeGatewayNameRegex  = lazyRegexCompile(EdgeGatewayNameRegexString)
+	OrganizationNameRegex = lazyRegexCompile(OrganizationNameRegexString)
 
 	// * Cases
 	PascalCaseRegex = lazyRegexCompile(PascalCaseRegexString)

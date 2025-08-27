@@ -16,6 +16,8 @@ const (
 	T0NameRegexString = `^pr(vrf)?(?<siteCode>[0-9]{2})?(?<workloadType>[a-z]{1})(?<contractId>[a-z0-9]{10})(?<serviceType>[a-z]{2,6})(?<linkType>[a-z]{2})(?<increment>[0-9]{2,3})`
 	// edgegateway(t1) name (tn01e02ocb0001234spt101)
 	EdgeGatewayNameRegexString = `^tn(?<siteCode>[0-9]{2})?(?<workloadType>[a-z]{1})(?<workload>[0-9]{2})(?<contractId>[a-z0-9]{10})(?<serviceType>[a-z]{2,6})t1(?<increment>[0-9]{2,5})`
+	// Organization name (cav01ev01ocb0001234)
+	OrganizationNameRegexString = `^cav(?<siteCode>[0-9]{2})(?<workloadType>[a-z]{2})(?<workload>[0-9]{2})(?<contractId>[a-z0-9]{10})`
 )
 
 type CavResourceName struct {
@@ -38,6 +40,12 @@ var (
 			Description: "Edge Gateway name (tn01e02ocb0001234spt101)",
 			RegexString: EdgeGatewayNameRegexString,
 			RegexP:      EdgeGatewayNameRegex(),
+		},
+		{
+			Key:         "organization",
+			Description: "Organization name (cav01ev01ocb0001234)",
+			RegexString: OrganizationNameRegexString,
+			RegexP:      OrganizationNameRegex(),
 		},
 	}
 )

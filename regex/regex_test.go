@@ -173,6 +173,43 @@ func TestRegex_EdgeGatewayName(t *testing.T) {
 	}
 }
 
+func TestRegex_OrganizationName(t *testing.T) {
+	tests := []struct {
+		name          string
+		input         string
+		expected      string
+		expectedError bool
+	}{
+		{
+			name:          "Valid Organization Name",
+			input:         "cav01ev01ocb0001234",
+			expected:      "cav01ev01ocb0001234",
+			expectedError: false,
+		},
+		{
+			name:          "Invalid Organization Name",
+			input:         "invalid-name",
+			expected:      "",
+			expectedError: true,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			matches := OrganizationNameRegex().FindAllString(test.input, -1)
+			if len(matches) == 0 && !test.expectedError {
+				t.Errorf("Expected to find a match for %s, but found none", test.input)
+			}
+			if len(matches) > 1 && !test.expectedError {
+				t.Errorf("Expected only one match for %s, but found %d", test.input, len(matches))
+			}
+			if len(matches) == 1 && matches[0] != test.expected {
+				t.Errorf("Expected match %s, got %s", test.expected, matches[0])
+			}
+		})
+	}
+}
+
 // TestRegex_Cases tests the regex patterns for different naming conventions.
 func TestRegex_Cases(t *testing.T) {
 	tests := []struct {
