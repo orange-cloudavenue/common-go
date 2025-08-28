@@ -44,9 +44,6 @@ func New() *Validator {
 	_ = v.RegisterValidation(HTTPStatusCode.Key, HTTPStatusCode.Func)
 	_ = v.RegisterValidation(HTTPStatusCodeRange.Key, HTTPStatusCodeRange.Func)
 
-	// * Format
-	_ = v.RegisterValidation(FormatValidator.Key, FormatValidator.Func)
-
 	// * Require/Exclude
 	_ = v.RegisterValidation(RequireIfNull.Key, RequireIfNull.Func)
 	_ = v.RegisterValidation(ExcludeIfNull.Key, ExcludeIfNull.Func)
