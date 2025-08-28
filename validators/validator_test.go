@@ -24,6 +24,11 @@ func TestCustomValidators(t *testing.T) {
 		valuesDoesNotWork []any
 		rule              string
 	}{
+		"format-email": {
+			valuesWork:        []any{"user@example.com", "test.email+alias@domain.co", "user_name@sub.domain.com"},
+			valuesDoesNotWork: []any{"invalid-email", "user@.com", "@domain.com", "user@domain", "user@domain..com", 666},
+			rule:              "format=email",
+		},
 		"cases-disallow_upper-upper": {
 			valuesWork:        []any{"test"},
 			valuesDoesNotWork: []any{"Test"},

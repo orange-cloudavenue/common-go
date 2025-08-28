@@ -34,6 +34,33 @@ This package provides a set of custom validators for Go applications, built on t
 
 ### String Format Validators
 
+#### Format Validators
+
+Le validateur `format` permet de valider des formats de chaînes spécifiques. Actuellement, le format supporté est :
+
+| Name           | Description                                         | Parameters | Example              |
+|----------------|-----------------------------------------------------|------------|----------------------|
+| `format=email` | Valide qu'une chaîne est une adresse email valide   |     ➖      | `user@example.com`   |
+
+**Exemple d'utilisation :**
+
+```go
+type User struct {
+    Email string `validate:"format=email"`
+}
+
+func main() {
+    user := User{Email: "user@example.com"}
+    err := validators.New().Struct(&user)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println("Email valide !")
+}
+```
+
+#### Case Validators
+
 | Name             | Description                                        | Parameters | Example                |
 |------------------|----------------------------------------------------|------------|------------------------|
 | `disallow_upper` | Ensures a string does not contain uppercase letters|     ➖       | `test`                 |

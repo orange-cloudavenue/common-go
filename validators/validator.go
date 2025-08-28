@@ -23,11 +23,16 @@ type Validator struct {
 
 // New creates a new validator.
 func New() *Validator {
+	// * String
 	v := validator.New(validator.WithRequiredStructEnabled())
 	_ = v.RegisterValidation(DisallowUpper.Key, DisallowUpper.Func)
 	_ = v.RegisterValidation(DisallowSpace.Key, DisallowSpace.Func)
 	_ = v.RegisterValidation(Case.Key, Case.Func)
+
+	// * Key/Value
 	_ = v.RegisterValidation(KeyValue.Key, KeyValue.Func)
+
+	// * Cloud Avenue
 	_ = v.RegisterValidation(URN.Key, URN.Func)
 
 	// * Network
@@ -38,6 +43,9 @@ func New() *Validator {
 	// * HTTP
 	_ = v.RegisterValidation(HTTPStatusCode.Key, HTTPStatusCode.Func)
 	_ = v.RegisterValidation(HTTPStatusCodeRange.Key, HTTPStatusCodeRange.Func)
+
+	// * Format
+	_ = v.RegisterValidation(FormatValidator.Key, FormatValidator.Func)
 
 	// * Require/Exclude
 	_ = v.RegisterValidation(RequireIfNull.Key, RequireIfNull.Func)
