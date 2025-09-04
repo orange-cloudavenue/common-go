@@ -5,7 +5,7 @@ go 1.24.5
 require (
 	github.com/creasty/defaults v1.8.0
 	github.com/go-playground/validator/v10 v10.27.0
-	github.com/orange-cloudavenue/common-go/regex v1.0.1
+	github.com/orange-cloudavenue/common-go/regex v1.2.0
 	github.com/orange-cloudavenue/common-go/strcase v1.0.0
 	github.com/orange-cloudavenue/common-go/urn v1.2.0
 	github.com/stretchr/testify v1.10.0
