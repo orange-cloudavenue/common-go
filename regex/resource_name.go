@@ -18,6 +18,8 @@ const (
 	EdgeGatewayNameRegexString = `^tn(?<siteCode>[0-9]{2})?(?<workloadType>[a-z]{1})(?<workload>[0-9]{2})(?<contractId>[a-z0-9]{10})(?<serviceType>[a-z]{2,6})t1(?<increment>[0-9]{2,5})`
 	// Organization name (cav01ev01ocb0001234) - https://regex101.com/r/hgYkSE/1
 	OrganizationNameRegexString = `^cav(?<siteCode>[0-9]{2})(?<customerType>[i,e,v])v([0-9]{2})ocb(?<contractId>[0-9]{7})`
+	// VDC name (<alphanumeric> with hyphen and minus, with max length 27 and min length 2) - https://regex101.com/r/NgL6X0/1
+	VDCNameRegexString = `^[a-zA-Z0-9-_]{2,27}$`
 )
 
 type CavResourceName struct {
@@ -46,6 +48,12 @@ var (
 			Description: "Organization name (cav01ev01ocb0001234)",
 			RegexString: OrganizationNameRegexString,
 			RegexP:      OrganizationNameRegex(),
+		},
+		{
+			Key:         "vdc",
+			Description: "VDC name (<alphanumeric> with - _ character and with max length 27 and min length 2)",
+			RegexString: VDCNameRegexString,
+			RegexP:      VDCNameRegex(),
 		},
 	}
 )

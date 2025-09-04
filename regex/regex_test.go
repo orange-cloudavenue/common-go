@@ -209,6 +209,39 @@ func TestRegex_OrganizationName(t *testing.T) {
 		})
 	}
 }
+func TestRegex_VDCName(t *testing.T) {
+	tests := []struct {
+		name          string
+		input         string
+		expected      string
+		expectedError bool
+	}{
+		{name: "Valid vdc name lowercase", input: "vdc01", expected: "vdc01", expectedError: false},
+		{name: "Valid vdc name uppercase", input: "VDC01", expected: "VDC01", expectedError: false},
+		{name: "Valid vdc name mixed", input: "my-VDC", expected: "my-VDC", expectedError: false},
+		{name: "Valid vdc name with underscore", input: "vdc_test", expected: "vdc_test", expectedError: false},
+		{name: "Valid vdc name with numbers", input: "vdc2025", expected: "vdc2025", expectedError: false},
+		{name: "Valid vdc name with dash", input: "vdc-Cloud", expected: "vdc-Cloud", expectedError: false},
+		{name: "Invalid vdc name with space", input: "vdc test", expected: "", expectedError: true},
+		{name: "Invalid vdc name with special char", input: "vdc@name", expected: "", expectedError: true},
+		{name: "Invalid vdc name too short", input: "v", expected: "", expectedError: true},
+		{name: "Invalid vdc name too long", input: "vdcnamevdcnamevdcnamevdcnamevdcname", expected: "", expectedError: true},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			matches := VDCNameRegex().FindAllString(test.input, -1)
+			if len(matches) == 0 && !test.expectedError {
+				t.Errorf("Expected to find a match for %s, but found none", test.input)
+			}
+			if len(matches) > 1 && !test.expectedError {
+				t.Errorf("Expected only one match for %s, but found %d", test.input, len(matches))
+			}
+			if len(matches) == 1 && matches[0] != test.expected {
+				t.Errorf("Expected match %s, got %s", test.expected, matches[0])
+			}
+		})
+	}
+}
 
 // TestRegex_Cases tests the regex patterns for different naming conventions.
 func TestRegex_Cases(t *testing.T) {

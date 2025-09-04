@@ -34,6 +34,7 @@ func New() *Validator {
 
 	// * Cloud Avenue
 	_ = v.RegisterValidation(URN.Key, URN.Func)
+	_ = v.RegisterValidation(CAVResourceName.Key, CAVResourceName.Func)
 
 	// * Network
 	_ = v.RegisterValidation(IPV4Range.Key, IPV4Range.Func)
@@ -47,9 +48,6 @@ func New() *Validator {
 	// * Require/Exclude
 	_ = v.RegisterValidation(RequireIfNull.Key, RequireIfNull.Func)
 	_ = v.RegisterValidation(ExcludeIfNull.Key, ExcludeIfNull.Func)
-
-	// * CAV
-	_ = v.RegisterValidation(CAVResourceName.Key, CAVResourceName.Func)
 
 	return &Validator{
 		Validate: v,

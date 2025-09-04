@@ -48,6 +48,7 @@ var (
 	T0NameRegex           = lazyRegexCompile(T0NameRegexString)
 	EdgeGatewayNameRegex  = lazyRegexCompile(EdgeGatewayNameRegexString)
 	OrganizationNameRegex = lazyRegexCompile(OrganizationNameRegexString)
+	VDCNameRegex          = lazyRegexCompile(VDCNameRegexString)
 
 	// * Cases
 	PascalCaseRegex = lazyRegexCompile(PascalCaseRegexString)
