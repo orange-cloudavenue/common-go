@@ -1,22 +1,16 @@
-/*
- * SPDX-FileCopyrightText: Copyright (c) 2025 Orange
- * SPDX-License-Identifier: Mozilla Public License 2.0
- *
- * This software is distributed under the MPL-2.0 license.
- * the text of which is available at https://www.mozilla.org/en-US/MPL/2.0/
- * or see the "LICENSE" file for more details.
- */
-
 package strcase
 
 import (
 	"strings"
 	"unicode"
+
+	"github.com/kr/pretty"
 )
 
-// ToPrivateGoName returns the Go public name of the given string.
+// ToPublicGoName returns the Go public name of the given string.
 func ToPublicGoName(s string) string {
-	return toGoName(TitleFirstWord(s))
+	return toGoName(s)
+	// return toGoName(TitleFirstWord(s))
 }
 
 // ToPrivateGoName returns the Go private name of the given string.
@@ -25,6 +19,7 @@ func ToPrivateGoName(s string) string {
 }
 
 // toGoName returns a different name if it should be different.
+// Now supports "{index}" and "{key}" as special path segments.
 func toGoName(name string) (should string) {
 	name = strings.ReplaceAll(name, " ", "_")
 	name = strings.ReplaceAll(name, "-", "_")
@@ -44,60 +39,70 @@ func toGoName(name string) (should string) {
 		return name
 	}
 
-	// Split camelCase at any lower->upper transition, and split on underscores.
-	// Check each word for common initialisms.
-	runes := []rune(name)
-	w, i := 0, 0 // index of start of word, scan
-	for i+1 <= len(runes) {
-		eow := false // whether we hit the end of a word
-		switch {
-		case i+1 == len(runes):
-			eow = true
-		case runes[i+1] == '_':
-			eow = true
-			n := 1
-			for i+n+1 < len(runes) && runes[i+n+1] == '_' {
-				n++
-			}
-			if i+n+1 < len(runes) && unicode.IsDigit(runes[i]) && unicode.IsDigit(runes[i+n+1]) {
-				n--
-			}
-			copy(runes[i+1:], runes[i+n+1:])
-			runes = runes[:len(runes)-n]
-		case unicode.IsLower(runes[i]) && !unicode.IsLower(runes[i+1]):
-			eow = true
-		}
-		i++
-		if !eow {
+	// Handle special segments "{index}" and "{key}" (leave them as is)
+	parts := strings.Split(name, ".")
+	for i, part := range parts {
+		if part == "{index}" || part == "{key}" {
 			continue
 		}
-
-		// [w,i) is a word.
-		word := string(runes[w:i])
-		u := strings.ToUpper(word)
-		if commonInitialisms[u] {
-			// Keep consistent case, which is lowercase only at the start.
-			if w == 0 && unicode.IsLower(runes[w]) {
-				u = strings.ToLower(u)
+		// Process the part as before
+		runes := []rune(part)
+		w, j := 0, 0 // index of start of word, scan
+		for j+1 <= len(runes) {
+			eow := false // whether we hit the end of a word
+			switch {
+			case j+1 == len(runes):
+				eow = true
+			case runes[j+1] == '_':
+				eow = true
+				n := 1
+				for j+n+1 < len(runes) && runes[j+n+1] == '_' {
+					n++
+				}
+				if j+n+1 < len(runes) && unicode.IsDigit(runes[j]) && unicode.IsDigit(runes[j+n+1]) {
+					n--
+				}
+				copy(runes[j+1:], runes[j+n+1:])
+				runes = runes[:len(runes)-n]
+			case unicode.IsLower(runes[j]) && !unicode.IsLower(runes[j+1]):
+				eow = true
 			}
-			// All the common initialisms are ASCII,
-			// so we can replace the bytes exactly.
-			copy(runes[w:], []rune(u))
-		} else if specialCase, exist := customInitialisms[u]; exist {
-			if w == 0 && unicode.IsLower(runes[w]) {
-				u = specialCase[1]
-			} else {
-				u = specialCase[0]
+			j++
+			if !eow {
+				continue
 			}
 
-			copy(runes[w:], []rune(u))
-		} else if w > 0 && strings.ToLower(word) == word {
-			// already all lowercase, and not the first word, so uppercase the first character.
-			runes[w] = unicode.ToUpper(runes[w])
+			// [w,j) is a word.
+			word := string(runes[w:j])
+			u := strings.ToUpper(word)
+			if commonInitialisms[u] {
+				// Keep consistent case, which is lowercase only at the start.
+				if w == 0 && unicode.IsLower(runes[w]) {
+					u = strings.ToLower(u)
+				}
+				copy(runes[w:], []rune(u))
+			} else if specialCase, exist := customInitialisms[u]; exist {
+				if w == 0 && unicode.IsLower(runes[w]) {
+					u = specialCase[1]
+				} else {
+					u = specialCase[0]
+				}
+				copy(runes[w:], []rune(u))
+			} else if w > 0 && strings.ToLower(word) == word {
+				// already all lowercase, and not the first word, so uppercase the first character.
+				runes[w] = unicode.ToUpper(runes[w])
+			}
+			w = j
 		}
-		w = i
+		parts[i] = string(runes)
+		// Always force the first letter to uppercase for each part (except {index}/{key})
+		if len(parts[i]) > 0 {
+			r := []rune(parts[i])
+			r[0] = unicode.ToUpper(r[0])
+			parts[i] = string(r)
+		}
 	}
-	return string(runes)
+	return strings.Join(parts, ".")
 }
 
 // Deprecated: this list should not be completed as it affects generation for our Go SDK only.
@@ -168,6 +173,23 @@ var customInitialisms = map[string][2]string{
 
 // TitleFirstWord upper case the first letter of a string.
 func TitleFirstWord(s string) string {
+	pretty.Println("=================================", s)
+	if s == "" {
+		return s
+	}
+
+	// split the string by dot and capitalize the first letter of each part (if not {index} or {key})
+	parts := strings.Split(s, ".")
+	for i, part := range parts {
+		if part == "{index}" || part == "{key}" {
+			continue
+		}
+		parts[i] = titleFirstWord(part)
+	}
+	return strings.Join(parts, ".")
+}
+
+func titleFirstWord(s string) string {
 	if s == "" {
 		return s
 	}
